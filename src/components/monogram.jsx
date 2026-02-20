@@ -4,39 +4,47 @@ import { motion, AnimatePresence } from "framer-motion";
 export default function Monogram() {
   const sectionRef = useRef(null);
   const videoRef = useRef(null);
-  const [hasPlayed, setHasPlayed] = useState(false);
   const [startEffect, setStartEffect] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
 
- useEffect(() => {
-  const observer = new IntersectionObserver(
-    (entries) => {
-      const entry = entries[0];
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
 
-      if (!videoRef.current) return;
+        if (!videoRef.current) return;
 
-      if (entry.isIntersecting) {
-        videoRef.current.playbackRate = 0.75;
+        if (entry.isIntersecting) {
+          // 1. Trigger the fade-in UI IMMEDIATELY, don't wait for video to buffer
+          setStartEffect(true);
+          videoRef.current.playbackRate = 0.75;
 
-        const playPromise = videoRef.current.play();
-        if (playPromise !== undefined) {
-          playPromise
-            .then(() => setStartEffect(true))
-            .catch(() => console.log("Autoplay blocked"));
+          const playPromise = videoRef.current.play();
+          if (playPromise !== undefined) {
+            playPromise.catch((err) => {
+              console.log("Autoplay blocked or delayed by mobile browser", err);
+            });
+          }
+        } else {
+          // Pause when out of view to save battery/memory
+          videoRef.current.pause();
         }
-      } else {
-        videoRef.current.pause();
+      },
+      { 
+        // 2. OPTIMIZATION: Start playing when only 10% is visible, 
+        // OR when it is 200px away from entering the screen!
+        threshold: 0.1, 
+        rootMargin: "200px 0px 200px 0px" 
       }
-    },
-    { threshold: 0.6 } // 60% visible before playing
-  );
+    );
 
-  if (sectionRef.current) observer.observe(sectionRef.current);
+    if (sectionRef.current) observer.observe(sectionRef.current);
 
-  return () => observer.disconnect();
-}, []);
+    return () => observer.disconnect();
+  }, []);
+
   const toggleMute = (e) => {
-    e.stopPropagation(); // Prevents bubbling issues
+    e.stopPropagation(); 
     if (videoRef.current) {
       videoRef.current.muted = !videoRef.current.muted;
       setIsMuted(videoRef.current.muted);
@@ -46,36 +54,29 @@ export default function Monogram() {
   return (
     <section
       ref={sectionRef}
-      // h-[100dvh] is the key fix for mobile viewport issues
-      // className="relative h-[100dvh] w-full flex items-center justify-center text-center overflow-hidden bg-black"
-      className="relative w-full flex items-center justify-center text-center overflow-hidden bg-black"
-style={{ height: "calc(var(--vh, 1vh) * 100)" }}
+      // Note: h-[100dvh] in modern Tailwind is highly recommended over the calc() hack!
+      className="relative h-[100dvh] w-full flex items-center justify-center text-center overflow-hidden bg-black"
     >
-      {/* Background Video - object-cover ensures it fills the h-[100dvh] container */}
+      {/* Background Video */}
       <video
         ref={videoRef}
-        // className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-[2000ms] ${
-        //   startEffect ? "opacity-100" : "opacity-0"
-        // }`}
-
         className={`absolute inset-0 w-full h-full object-contain bg-black transition-opacity duration-[2000ms] ${
-  startEffect ? "opacity-100" : "opacity-0"
-}`}
-        src="/teaser.mp4"
+          startEffect ? "opacity-100" : "opacity-0"
+        }`}
+        src="/monogramLux.mp4"
+        // 3. OPTIMIZATION: Add a poster image so the screen isn't black while loading
+        poster="/monogramLux-poster.jpg" 
         playsInline
+        webkit-playsinline="true" // Crucial for older iOS devices
+        disablePictureInPicture
         muted={isMuted}
         loop
-        preload="auto"
+        preload="metadata" // "metadata" is generally more respected by mobile than "auto"
       />
 
-      {/* Cinematic Overlays */}
-      <div className={`absolute inset-0 bg-black transition-opacity duration-[2500ms] ${
-          startEffect ? "opacity-50" : "opacity-100"
-        }`}
-      />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/80"></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/80 pointer-events-none"></div>
 
-      {/* Unmute UI Button - Optimized for Thumb-reach on Mobile */}
+      {/* Unmute UI Button */}
       <AnimatePresence>
         {startEffect && (
           <motion.button
@@ -104,16 +105,6 @@ style={{ height: "calc(var(--vh, 1vh) * 100)" }}
           </motion.button>
         )}
       </AnimatePresence>
-
-      {/* Center Label */}
-      <motion.div 
-        initial={{ opacity: 0, y: 10 }}
-        animate={startEffect ? { opacity: 0.6, y: 0 } : {}}
-        className="relative z-10 pointer-events-none"
-      >
-        {/*<p className="text-white text-[10px] tracking-[0.6em] uppercase">Wedding Teaser</p>*/}
-      </motion.div>
-
     </section>
   );
 }

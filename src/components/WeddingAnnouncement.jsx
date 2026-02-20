@@ -139,6 +139,30 @@ export default function WeddingAnnouncement() {
             </div>
 
           </div>
+         {/* <div className="max-w-xl mx-auto border-t border-rose-200 pt-8 md:pt-12">
+            <h3 className="text-3xl sm:text-5xl md:text-3xl lg:text-5xl drop-shadow-md py-1" style={goldGradientStyle}>
+                Monday 20th April 2026
+              </h3>
+          </div>*/}
+
+          <div className="max-w-xl mx-auto border-t border-rose-200 pt-8 md:pt-12">
+            <div className="flex items-center justify-center space-x-6 md:space-x-10 py-4">
+              <span className="text-xl md:text-2xl uppercase tracking-[0.2em] text-gray-600">
+                April
+              </span>
+              <div className="w-px h-12 bg-rose-200"></div> {/* Vertical Divider */}
+              <h3 className="text-5xl sm:text-6xl md:text-7xl drop-shadow-md font-light" style={goldGradientStyle}>
+                20
+              </h3>
+              <div className="w-px h-12 bg-rose-200"></div> {/* Vertical Divider */}
+              <span className="text-xl md:text-2xl uppercase tracking-[0.2em] text-gray-600">
+                2026
+              </span>
+            </div>
+            <p className="text-center text-rose-400 tracking-widest uppercase text-sm mt-4">
+              Monday
+            </p>
+          </div>
 
           {/* Bottom Message */}
           <div className="max-w-xl mx-auto border-t border-rose-200 pt-8 md:pt-12">

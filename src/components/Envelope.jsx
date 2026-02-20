@@ -1,10 +1,26 @@
-import { useState } from "react";
+import { useState,useRef } from "react";
 
 export default function Envelope({ onOpen }) {
   const [isOpening, setIsOpening] = useState(false);
-
+const audioRef = useRef(null);
   const handleOpen = () => {
     setIsOpening(true);
+
+    // if (audioRef.current) {
+    //   audioRef.current.volume = 0;
+    //   audioRef.current.play().catch(() => {});
+
+    //   // Smooth fade-in
+    //   let vol = 0;
+    //   const fade = setInterval(() => {
+    //     if (vol < 0.8) {
+    //       vol += 0.05;
+    //       audioRef.current.volume = vol;
+    //     } else {
+    //       clearInterval(fade);
+    //     }
+    //   }, 200);
+    // }
 
     setTimeout(() => {
       onOpen();
@@ -13,6 +29,9 @@ export default function Envelope({ onOpen }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#fdf3f0] px-4">
+
+    {/*<audio ref={audioRef} src="/rustam.mp3" loop preload="auto" />*/}
+
 
       {/* Envelope Wrapper */}
       <div className="relative w-full max-w-3xl h-[320px]">
