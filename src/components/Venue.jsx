@@ -42,7 +42,7 @@ export default function Venue() {
       {/* Content */}
       <div className="relative z-10 px-6 text-white">
         <h2 className="text-4xl md:text-5xl font-serif mb-6">
-          Venue
+          Wedding Venue
         </h2>
 
         <p className="text-xl md:text-2xl font-medium">
