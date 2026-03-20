@@ -50,12 +50,14 @@ export default function Envelope({ onOpen }) {
           {/* === FIXED TEXT AND SEAL PLACEMENT === */}
           {!isOpening && (
             <>
-              {/* Top Text - Placed beautifully in the upper flap */}
               <div className="absolute top-[20%] sm:top-[22%] left-0 w-full z-50 px-6 text-center pointer-events-none -translate-y-1/2">
-                <p className="text-3xl sm:text-[2.5rem] text-[#b76e79] drop-shadow-sm whitespace-nowrap" style={{ fontFamily: "'Great Vibes', cursive" }}>
-                  This invitation is exclusively for you
-                </p>
-              </div>
+  <p 
+    className="text-xl sm:text-[1.8rem] text-[#b76e79] drop-shadow-sm whitespace-nowrap"
+    style={{ fontFamily: "'Great Vibes', cursive" }}
+  >
+    This invitation is exclusively for you
+  </p>
+</div>
 
               {/* Bottom Text - Placed in the lower flap */}
               <div className="absolute bottom-[20%] sm:bottom-[22%] left-0 w-full z-50 px-6 text-center pointer-events-none translate-y-1/2">
