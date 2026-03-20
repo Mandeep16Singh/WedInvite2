@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 
 export default function Gallery() {
   const images = [
-    "/g15.png", "/g16.jpg", "/g17.jpg", "/g18.jpg", "/g1.png",
+    "/g15.png", "/g16.jpg", "/g19.jpg", "/g18.jpg", "/g1.png",
     "/g2.png", "/g0.jpg", "/g11.png", "/g5.png", "/g6.jpg",
     "/g7.jpg", "/g8.jpg", "/g10.png",
   ];
