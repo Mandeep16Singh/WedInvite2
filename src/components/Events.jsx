@@ -3,7 +3,7 @@ import { useState } from "react";
 
 export default function Events() {
   // Smart Change: Set Groom as the default starting tab
-  const [activeTab, setActiveTab] = useState("groom");
+  const [activeTab, setActiveTab] = useState("bride");
 
   const brideEvents = [
     {
