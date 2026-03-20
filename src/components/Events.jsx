@@ -8,26 +8,26 @@ export default function Events() {
   const brideEvents = [
     {
       title: "Haldi",
-      date: "19th April 2026 | 9:00 AM",
+      date: "18th April 2026 | 2:00 PM",
       venue: "Sector 9A, Gurgaon",
       image: "/haldi.jpg",
     },
     {
       title: "Mehendi",
-      date: "19th April 2026 | 5:00 PM",
+      date: "19th April 2026 | 2:00 PM",
       venue: "Sector 9A, Gurgaon",
       image: "/mehendi.jpg",
     },
 
     {
       title: "Bhaat & Manda",
-      date: "19th April 2026 | 3:00 PM",
+      date: "19th April 2026 | 05:00 PM",
       venue: "Sector 9A, Gurgaon",
       image: "/bhaat.jpg",
     },
     {
       title: "Sangeet",
-      date: "19th April 2026 | 8:00 PM",
+      date: "19th April 2026 | 7:00 PM",
       venue: "Sector 9A, Gurgaon",
       image: "/sangeet.jpg",
     },
@@ -43,7 +43,7 @@ export default function Events() {
 
     {
       title: "Bhaat & Manda",
-      date: "19th April 2026 | 10:00 PM",
+      date: "19th April 2026 | 11:00 AM",
       venue: "Mrg World - The Balcony, Sector 93, Gurgaon",
       image: "/bhaat.jpg",
     },
